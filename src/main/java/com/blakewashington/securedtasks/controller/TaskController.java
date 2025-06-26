@@ -1,5 +1,6 @@
 package com.blakewashington.securedtasks.controller;
 
+import com.blakewashington.securedtasks.dto.TaskDTO;
 import com.blakewashington.securedtasks.entity.Task;
 import com.blakewashington.securedtasks.repository.TaskRepository;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,17 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskDTO> getAllTasks() {
+        return taskRepository.findAll().stream()
+                .map(task -> new TaskDTO(
+                        task.getId(),
+                        task.getUser().getUserName(),
+                        task.getTitle(),
+                        task.getDescription(),
+                        task.getPriority(),
+                        task.isCompleted(),
+                        task.getCreatedDate()
+                )).toList();
     }
 
     @PutMapping("/{id}")
