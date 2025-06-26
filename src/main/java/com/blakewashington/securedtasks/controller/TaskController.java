@@ -35,7 +35,7 @@ public class TaskController {
                     newTask.setDescription(task.getDescription());
                     newTask.setPriority(task.getPriority());
                     newTask.setCompleted(task.isCompleted());
-                    newTask.setCreatedAt(task.getCreatedAt());
+                    newTask.setCreatedDate(task.getCreatedDate());
                     return ResponseEntity.ok(taskRepository.save(newTask));
                 })
                 .orElse(ResponseEntity.notFound().build()).getBody();
